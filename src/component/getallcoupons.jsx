@@ -1,0 +1,32 @@
+import axios from "axios";
+class getallcoupons {
+  async getallcoupons() {
+    let url = "http://localhost:8084/coupon/list";
+    let axiosResponse;
+    let result;
+    let error = "";
+    console.log("in func");
+    try {
+      axiosResponse = await axios.get(url).catch((err) => {
+        if (err.response.status !== 200) {
+          console.log(err.response.status);
+          error = err.response.status;
+          throw new Error("CANNOT FETCH COUPONS");
+        }
+        throw err;
+      });
+    } catch (err) {
+      alert(err);
+      result = err;
+    }
+    if (error === "") {
+      result = axiosResponse.data;
+    }
+    console.log("resp ", axiosResponse);
+
+    return result;
+  }
+}
+
+export default new getallcoupons();
+
